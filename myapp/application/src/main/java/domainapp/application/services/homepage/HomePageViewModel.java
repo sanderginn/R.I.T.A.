@@ -20,12 +20,13 @@ package domainapp.application.services.homepage;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.Nature;
-import org.apache.isis.applib.services.i18n.TranslatableString;
 
-import domainapp.modules.simple.dom.impl.SimpleObject;
-import domainapp.modules.simple.dom.impl.SimpleObjectRepository;
+import domainapp.modules.rita.dom.driver.Driver;
+import domainapp.modules.rita.dom.driver.DriverRepository;
 
 @DomainObject(
         nature = Nature.VIEW_MODEL,
@@ -33,14 +34,14 @@ import domainapp.modules.simple.dom.impl.SimpleObjectRepository;
 )
 public class HomePageViewModel {
 
-    public TranslatableString title() {
-        return TranslatableString.tr("{num} objects", "num", getObjects().size());
+    public String title() {
+        return "R.I.T.A.";
     }
 
-    public List<SimpleObject> getObjects() {
-        return simpleObjectRepository.listAll();
+    public List<Driver> getDrivers() {
+        return driverRepository.listAll();
     }
 
-    @javax.inject.Inject
-    SimpleObjectRepository simpleObjectRepository;
+    @Inject
+    DriverRepository driverRepository;
 }

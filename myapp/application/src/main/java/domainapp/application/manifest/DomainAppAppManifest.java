@@ -34,7 +34,7 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import domainapp.application.fixture.DomainAppApplicationModuleFixtureSubmodule;
 import domainapp.application.services.DomainAppApplicationModuleServicesSubmodule;
-import domainapp.modules.simple.dom.SimpleModuleDomSubmodule;
+import domainapp.modules.rita.dom.SimpleModuleDomSubmodule;
 
 /**
  * Bootstrap the application.

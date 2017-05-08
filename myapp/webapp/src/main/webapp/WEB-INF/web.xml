@@ -21,7 +21,7 @@
     xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 
-    <display-name>Simple app</display-name>
+    <display-name>R.I.T.A.</display-name>
 
     <welcome-file-list>
         <welcome-file>about/index.html</welcome-file>
@@ -229,10 +229,8 @@
 
     <context-param>
         <param-name>configuration</param-name>
-        <!-- 
         <param-value>deployment</param-value>
-         -->
-        <param-value>development</param-value>
+        <!--<param-value>development</param-value>-->
     </context-param>
     
    

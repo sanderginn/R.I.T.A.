@@ -162,6 +162,12 @@
             <version>${mavendeps-isisintellij.version}</version>
             <type>pom</type>
         </dependency>
+
+        <dependency>
+            <groupId>org.isisaddons.metamodel.paraname8</groupId>
+            <artifactId>isis-metamodel-paraname8-dom</artifactId>
+            <version>1.14.0</version>
+        </dependency>
     </dependencies>
 
     <profiles>

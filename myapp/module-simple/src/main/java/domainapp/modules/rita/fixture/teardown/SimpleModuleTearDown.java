@@ -16,17 +16,21 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package domainapp.application.fixture.teardown;
+
+package domainapp.modules.rita.fixture.teardown;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
+import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 
-import domainapp.modules.rita.fixture.teardown.SimpleModuleTearDown;
-
-public class DomainAppTearDown extends FixtureScript {
+public class SimpleModuleTearDown extends FixtureScript {
 
     @Override
     protected void execute(ExecutionContext executionContext) {
-        executionContext.executeChild(this, new SimpleModuleTearDown());
+        isisJdoSupport.executeUpdate("delete from \"simple\".\"SimpleObject\"");
     }
+
+
+    @javax.inject.Inject
+    private IsisJdoSupport isisJdoSupport;
 
 }

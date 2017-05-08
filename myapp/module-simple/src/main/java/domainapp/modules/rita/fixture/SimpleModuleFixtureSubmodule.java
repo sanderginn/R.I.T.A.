@@ -16,17 +16,8 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package domainapp.application.fixture.teardown;
+package domainapp.modules.rita.fixture;
 
-import org.apache.isis.applib.fixturescripts.FixtureScript;
-
-import domainapp.modules.rita.fixture.teardown.SimpleModuleTearDown;
-
-public class DomainAppTearDown extends FixtureScript {
-
-    @Override
-    protected void execute(ExecutionContext executionContext) {
-        executionContext.executeChild(this, new SimpleModuleTearDown());
-    }
-
+public final class SimpleModuleFixtureSubmodule {
+    private SimpleModuleFixtureSubmodule(){}
 }

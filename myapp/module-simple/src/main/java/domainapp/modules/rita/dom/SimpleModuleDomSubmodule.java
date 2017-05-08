@@ -16,17 +16,15 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package domainapp.application.fixture.teardown;
+package domainapp.modules.rita.dom;
 
-import org.apache.isis.applib.fixturescripts.FixtureScript;
+public final class SimpleModuleDomSubmodule {
+    private SimpleModuleDomSubmodule(){}
 
-import domainapp.modules.rita.fixture.teardown.SimpleModuleTearDown;
-
-public class DomainAppTearDown extends FixtureScript {
-
-    @Override
-    protected void execute(ExecutionContext executionContext) {
-        executionContext.executeChild(this, new SimpleModuleTearDown());
-    }
-
+    public static class PropertyDomainEvent<S,T>
+            extends org.apache.isis.applib.services.eventbus.PropertyDomainEvent<S,T> {}
+    public static class CollectionDomainEvent<S,T>
+            extends org.apache.isis.applib.services.eventbus.CollectionDomainEvent<S,T> {}
+    public static class ActionDomainEvent<S> extends
+            org.apache.isis.applib.services.eventbus.ActionDomainEvent<S> {}
 }

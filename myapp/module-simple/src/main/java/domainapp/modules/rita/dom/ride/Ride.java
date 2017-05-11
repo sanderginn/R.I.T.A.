@@ -31,14 +31,18 @@ public class Ride implements Comparable<Ride> {
     public Ride(
             final String description,
             final LocalDate date,
+            final BigInteger oldMileage,
             final BigInteger newMileage,
             final Driver driver,
             final Car car) {
         setDescription(description);
         setDate(date);
+        setOldMileage(oldMileage);
         setNewMileage(newMileage);
+        setDistanceTraveled(newMileage.subtract(oldMileage));
         setDriver(driver);
         setCar(car);
+        setPaid(Boolean.FALSE);
     }
 
     @Column(allowsNull = "false")
@@ -51,7 +55,15 @@ public class Ride implements Comparable<Ride> {
 
     @Column(allowsNull = "false")
     @Getter @Setter
+    private BigInteger oldMileage;
+
+    @Column(allowsNull = "false")
+    @Getter @Setter
     private BigInteger newMileage;
+
+    @Column(allowsNull = "false")
+    @Getter @Setter
+    private BigInteger distanceTraveled;
 
     @Column(allowsNull = "false")
     @Getter @Setter
@@ -60,6 +72,10 @@ public class Ride implements Comparable<Ride> {
     @Column(allowsNull = "false")
     @Getter @Setter
     private Car car;
+
+    @Column(allowsNull = "false")
+    @Getter @Setter
+    private Boolean paid;
 
     @Override
     public int compareTo(final Ride o) {

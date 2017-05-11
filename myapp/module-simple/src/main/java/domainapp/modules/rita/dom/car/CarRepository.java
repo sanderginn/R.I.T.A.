@@ -7,8 +7,12 @@ import javax.inject.Inject;
 
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.Programmatic;
+import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.registry.ServiceRegistry2;
 import org.apache.isis.applib.services.repository.RepositoryService;
+
+import domainapp.modules.rita.dom.driver.Driver;
 
 @DomainService(
         nature = NatureOfService.DOMAIN,
@@ -25,6 +29,16 @@ public class CarRepository {
         serviceRegistry.injectServicesInto(car);
         repositoryService.persist(car);
         return car;
+    }
+
+    @Programmatic
+    public Car findByLicensePlate(final String licensePlate) {
+        return repositoryService.uniqueMatch(
+                new QueryDefault<>(
+                        Car.class,
+                        "findByLicensePlate",
+                        "licensePlate", licensePlate
+                ));
     }
 
     @Inject

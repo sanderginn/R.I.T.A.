@@ -9,7 +9,10 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
+
+import domainapp.modules.rita.dom.util.IBANValidator;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
@@ -38,8 +41,16 @@ public class DriverMenu {
             final String firstName,
             final String lastName,
             final String email,
-            final String iban) {
+            final @ParameterLayout(named = "IBAN") String iban) {
         return driverRepository.newDriver(firstName, lastName, email, iban);
+    }
+
+    public String validateNewDriver(
+            final String firstName,
+            final String lastName,
+            final String email,
+            final String iban) {
+        return !IBANValidator.valid(iban) ? "Not a valid IBAN" : null;
     }
 
     @Inject

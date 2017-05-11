@@ -10,6 +10,8 @@ import javax.inject.Inject;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.Queries;
+import javax.jdo.annotations.Query;
 import javax.jdo.annotations.VersionStrategy;
 
 import org.joda.time.LocalDate;
@@ -41,6 +43,13 @@ import lombok.Setter;
 @javax.jdo.annotations.Version(
         strategy = VersionStrategy.DATE_TIME,
         column = "version")
+@Queries({
+        @Query(
+                name = "findByLicensePlate",
+                value = "SELECT "
+                        + "FROM domainapp.modules.rita.dom.car.Car "
+                        + "WHERE licensePlate == :licensePlate")
+})
 @DomainObject()
 public class Car {
 
@@ -122,7 +131,8 @@ public class Car {
             final LocalDate date,
             final BigInteger newMileage,
             final Driver driver) {
-        rideRepository.newRide(description, date, newMileage, driver, this);
+        rideRepository.newRide(description, date, getMileage(), newMileage, driver, this);
+        setMileage(newMileage);
         return this;
     }
 

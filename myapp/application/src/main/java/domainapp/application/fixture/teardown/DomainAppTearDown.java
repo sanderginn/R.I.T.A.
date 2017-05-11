@@ -20,13 +20,13 @@ package domainapp.application.fixture.teardown;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import domainapp.modules.rita.fixture.teardown.SimpleModuleTearDown;
+import domainapp.modules.rita.fixture.teardown.RitaModuleTearDown;
 
 public class DomainAppTearDown extends FixtureScript {
 
     @Override
     protected void execute(ExecutionContext executionContext) {
-        executionContext.executeChild(this, new SimpleModuleTearDown());
+        executionContext.executeChild(this, new RitaModuleTearDown());
     }
 
 }

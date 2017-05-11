@@ -16,12 +16,7 @@
  */
 package domainapp.modules.rita.dom.impl;
 
-import java.math.BigInteger;
-
 import org.junit.Before;
-import org.junit.Test;
-
-import domainapp.modules.rita.dom.car.Car;
 
 public class Car_Test {
 
@@ -31,11 +26,6 @@ public class Car_Test {
 
     public static class NewCar extends Car_Test {
 
-        @Test
-        public void happyCase() throws Exception {
-            Car car = new Car("4TFL24", BigInteger.TEN);
-            System.out.println(car);
-        }
     }
 
 }

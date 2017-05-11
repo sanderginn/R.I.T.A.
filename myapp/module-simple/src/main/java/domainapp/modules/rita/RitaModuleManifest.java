@@ -26,19 +26,19 @@ import java.util.Map;
 import org.apache.isis.applib.AppManifest;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import domainapp.modules.rita.dom.SimpleModuleDomSubmodule;
-import domainapp.modules.rita.fixture.SimpleModuleFixtureSubmodule;
+import domainapp.modules.rita.dom.RitaModuleDomSubmodule;
+import domainapp.modules.rita.fixture.RitaModuleFixtureSubmodule;
 
 /**
  * Used by <code>isis-maven-plugin</code> (build-time validation of the module) and also by module-level integration tests.
  */
-public class SimpleModuleManifest implements AppManifest {
+public class RitaModuleManifest implements AppManifest {
 
     @Override
     public List<Class<?>> getModules() {
         return Arrays.<Class<?>>asList(
-                SimpleModuleDomSubmodule.class,
-                SimpleModuleFixtureSubmodule.class
+                RitaModuleDomSubmodule.class,
+                RitaModuleFixtureSubmodule.class
         );
     }
 

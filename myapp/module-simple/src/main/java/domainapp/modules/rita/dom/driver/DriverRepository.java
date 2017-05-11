@@ -10,6 +10,8 @@ import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.registry.ServiceRegistry2;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
+import domainapp.modules.rita.dom.util.IBANValidator;
+
 @DomainService(
         nature = NatureOfService.DOMAIN,
         repositoryFor = Driver.class

@@ -22,10 +22,11 @@ public class RideRepository {
     public void newRide(
             final String description,
             final LocalDate date,
+            final BigInteger oldMileage,
             final BigInteger newMileage,
             final Driver driver,
             final Car car) {
-        final Ride ride = new Ride(description, date, newMileage, driver, car);
+        final Ride ride = new Ride(description, date, oldMileage, newMileage, driver, car);
         serviceRegistry.injectServicesInto(ride);
         repositoryService.persist(ride);
     }

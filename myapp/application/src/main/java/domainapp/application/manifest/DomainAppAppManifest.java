@@ -34,7 +34,7 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import domainapp.application.fixture.DomainAppApplicationModuleFixtureSubmodule;
 import domainapp.application.services.DomainAppApplicationModuleServicesSubmodule;
-import domainapp.modules.rita.dom.SimpleModuleDomSubmodule;
+import domainapp.modules.rita.dom.RitaModuleDomSubmodule;
 
 /**
  * Bootstrap the application.
@@ -73,7 +73,7 @@ public class DomainAppAppManifest implements AppManifest {
     public List<Class<?>> getModules() {
         List<Class<?>> modules = Lists.newArrayList();
         modules.addAll(Arrays.asList(
-                SimpleModuleDomSubmodule.class,
+                RitaModuleDomSubmodule.class,
                 DomainAppApplicationModuleFixtureSubmodule.class,
                 DomainAppApplicationModuleServicesSubmodule.class
         ));

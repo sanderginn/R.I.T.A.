@@ -16,8 +16,22 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package domainapp.modules.rita.fixture;
 
-public final class SimpleModuleFixtureSubmodule {
-    private SimpleModuleFixtureSubmodule(){}
+package domainapp.modules.rita.fixture.teardown;
+
+import org.apache.isis.applib.fixturescripts.FixtureScript;
+import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
+
+public class RitaModuleTearDown extends FixtureScript {
+
+    @Override
+    protected void execute(ExecutionContext executionContext) {
+        isisJdoSupport.executeUpdate("delete from \"rita\".\"Ride\"");
+        isisJdoSupport.executeUpdate("delete from \"rita\".\"Driver\"");
+        isisJdoSupport.executeUpdate("delete from \"rita\".\"Car\"");
+    }
+
+    @javax.inject.Inject
+    private IsisJdoSupport isisJdoSupport;
+
 }

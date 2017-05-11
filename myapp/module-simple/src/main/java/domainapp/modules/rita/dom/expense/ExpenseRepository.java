@@ -1,6 +1,6 @@
-package domainapp.modules.rita.dom.ride;
+package domainapp.modules.rita.dom.expense;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -18,25 +18,26 @@ import domainapp.modules.rita.dom.driver.Driver;
 
 @DomainService(
         nature = NatureOfService.DOMAIN,
-        repositoryFor = Ride.class)
-public class RideRepository {
+        repositoryFor = Expense.class)
+public class ExpenseRepository {
 
-    public void newRide(
-            final String description,
-            final LocalDate date,
-            final BigInteger oldMileage,
-            final BigInteger newMileage,
-            final Driver driver,
+    public Expense newExpense(
+            final ExpenseType type,
+            final BigDecimal cost,
+            final LocalDate datePaid,
+            final Driver paidBy,
             final Car car) {
-        final Ride ride = new Ride(description, date, oldMileage, newMileage, driver, car);
-        serviceRegistry.injectServicesInto(ride);
-        repositoryService.persist(ride);
+        final Expense expense = new Expense(type, cost, datePaid, paidBy, car);
+        serviceRegistry.injectServicesInto(expense);
+        repositoryService.persist(expense);
+
+        return expense;
     }
 
-    public List<Ride> findByCar(final Car car) {
+    public List<Expense> findByCar(final Car car) {
         return repositoryService.allMatches(
                 new QueryDefault<>(
-                        Ride.class,
+                        Expense.class,
                         "findByCar",
                         "car", car
                 ));
@@ -47,4 +48,5 @@ public class RideRepository {
 
     @Inject
     ServiceRegistry2 serviceRegistry;
+
 }

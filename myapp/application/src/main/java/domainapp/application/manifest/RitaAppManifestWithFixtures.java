@@ -18,12 +18,27 @@
  */
 package domainapp.application.manifest;
 
-/**
- * Bypasses security, meaning any user/password combination can be used to login.
- */
-public class DomainAppAppManifestWithFixturesBypassSecurity extends DomainAppAppManifestWithFixtures {
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
-    public DomainAppAppManifestWithFixturesBypassSecurity() {
-        super("bypass");
+import org.apache.isis.applib.fixturescripts.FixtureScript;
+
+import domainapp.application.fixture.scenarios.RitaAppDemo;
+
+public class RitaAppManifestWithFixtures extends RitaAppManifest {
+
+    @Override
+    public List<Class<? extends FixtureScript>> getFixtures() {
+        return Arrays.asList(
+                RitaAppDemo.class
+        );
+    }
+
+    @Override
+    public Map<String, String> getConfigurationProperties() {
+        final Map<String, String> props = super.getConfigurationProperties();
+        withInstallFixtures(props);
+        return props;
     }
 }

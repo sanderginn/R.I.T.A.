@@ -1,6 +1,6 @@
-package domainapp.modules.rita.dom.ride;
+package domainapp.modules.rita.dom.expense;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
 
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
@@ -33,59 +33,46 @@ import lombok.Setter;
         @Query(
                 name = "findByCar",
                 value = "SELECT "
-                        + "FROM domainapp.modules.rita.dom.ride.Ride "
+                        + "FROM domainapp.modules.rita.dom.expense.Expense "
                         + "WHERE car == :car")
 })
 @DomainObject()
-public class Ride implements Comparable<Ride> {
+public class Expense implements Comparable<Expense> {
 
     public String title() {
         return TitleBuilder.start()
-                .withName(getDescription())
-                .withReference(date.toString())
                 .toString();
     }
 
-    public Ride(
-            final String description,
-            final LocalDate date,
-            final BigInteger oldMileage,
-            final BigInteger newMileage,
-            final Driver driver,
+    public Expense(
+            final ExpenseType type,
+            final BigDecimal cost,
+            final LocalDate datePaid,
+            final Driver paidBy,
             final Car car) {
-        setDescription(description);
-        setDate(date);
-        setOldMileage(oldMileage);
-        setNewMileage(newMileage);
-        setDistanceTraveled(newMileage.subtract(oldMileage));
-        setDriver(driver);
+        setType(type);
+        setCost(cost);
+        setDatePaid(datePaid);
+        setPaidBy(paidBy);
         setCar(car);
         setSettled(Boolean.FALSE);
     }
 
     @Column(allowsNull = "false")
     @Getter @Setter
-    private String description;
+    private ExpenseType type;
+
+    @Column(allowsNull = "false", scale = 2)
+    @Getter @Setter
+    private BigDecimal cost;
 
     @Column(allowsNull = "false")
     @Getter @Setter
-    private LocalDate date;
+    private LocalDate datePaid;
 
     @Column(allowsNull = "false")
     @Getter @Setter
-    private BigInteger oldMileage;
-
-    @Column(allowsNull = "false")
-    @Getter @Setter
-    private BigInteger newMileage;
-
-    @Column(allowsNull = "false")
-    @Getter @Setter
-    private BigInteger distanceTraveled;
-
-    @Column(allowsNull = "false")
-    @Getter @Setter
-    private Driver driver;
+    private Driver paidBy;
 
     @Column(allowsNull = "false")
     @Getter @Setter
@@ -96,7 +83,7 @@ public class Ride implements Comparable<Ride> {
     private Boolean settled;
 
     @Override
-    public int compareTo(final Ride o) {
-        return this.getDate().compareTo(o.getDate());
+    public int compareTo(final Expense o) {
+        return getDatePaid().compareTo(o.getDatePaid());
     }
 }

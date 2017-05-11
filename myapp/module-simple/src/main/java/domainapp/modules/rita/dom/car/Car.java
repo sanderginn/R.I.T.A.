@@ -3,13 +3,10 @@ package domainapp.modules.rita.dom.car;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 import javax.inject.Inject;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
-import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.Queries;
 import javax.jdo.annotations.Query;
 import javax.jdo.annotations.VersionStrategy;
@@ -20,13 +17,11 @@ import org.json.JSONObject;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.SemanticsOf;
-import org.apache.isis.applib.services.clock.ClockService;
 
 import org.incode.module.base.dom.utils.TitleBuilder;
 
 import domainapp.modules.rita.dom.driver.Driver;
 import domainapp.modules.rita.dom.driver.DriverRepository;
-import domainapp.modules.rita.dom.ride.Ride;
 import domainapp.modules.rita.dom.ride.RideRepository;
 import domainapp.modules.rita.dom.util.DateUtil;
 import domainapp.modules.rita.dom.util.LicenseScanner;
@@ -122,44 +117,10 @@ public class Car {
 
     // //////////////////////////////////
 
-    @Persistent(mappedBy = "car")
-    @Getter @Setter
-    public SortedSet<Ride> rides = new TreeSet<>();
-
-    public Car addRide(
-            final String description,
-            final LocalDate date,
-            final BigInteger newMileage,
-            final Driver driver) {
-        rideRepository.newRide(description, date, getMileage(), newMileage, driver, this);
-        setMileage(newMileage);
-        return this;
-    }
-
-    public LocalDate default1AddRide() {
-        return clockService.now();
-    }
-
-    public List<Driver> choices3AddRide() {
-        return getDrivers();
-    }
-
-    public String validateAddRide(
-            final String description,
-            final LocalDate date,
-            final BigInteger newMileage,
-            final Driver driver) {
-        return newMileage.compareTo(getMileage()) != 1 ? "New mileage must be more than current mileage (" + getMileage().toString() + ")" : null;
-    }
-
-    // //////////////////////////////////
-
     @Inject
     DriverRepository driverRepository;
 
     @Inject
     RideRepository rideRepository;
 
-    @Inject
-    ClockService clockService;
 }

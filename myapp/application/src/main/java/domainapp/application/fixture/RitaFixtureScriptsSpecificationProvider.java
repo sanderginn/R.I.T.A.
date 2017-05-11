@@ -24,7 +24,7 @@ import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.fixturespec.FixtureScriptsSpecification;
 import org.apache.isis.applib.services.fixturespec.FixtureScriptsSpecificationProvider;
 
-import domainapp.application.fixture.scenarios.DomainAppDemo;
+import domainapp.application.fixture.scenarios.RitaAppDemo;
 
 /**
  * Specifies where to find fixtures, and other settings.
@@ -32,15 +32,15 @@ import domainapp.application.fixture.scenarios.DomainAppDemo;
 @DomainService(
         nature = NatureOfService.DOMAIN
 )
-public class DomainAppFixtureScriptsSpecificationProvider implements FixtureScriptsSpecificationProvider {
+public class RitaFixtureScriptsSpecificationProvider implements FixtureScriptsSpecificationProvider {
     @Override
     public FixtureScriptsSpecification getSpecification() {
         return FixtureScriptsSpecification
-                .builder(DomainAppFixtureScriptsSpecificationProvider.class)
+                .builder(RitaFixtureScriptsSpecificationProvider.class)
                 .with(FixtureScripts.MultipleExecutionStrategy.EXECUTE)
-                .withRunScriptDefault(DomainAppDemo.class)
+                .withRunScriptDefault(RitaAppDemo.class)
                 .withRunScriptDropDown(FixtureScriptsSpecification.DropDownPolicy.CHOICES)
-                .withRecreate(DomainAppDemo.class)
+                .withRecreate(RitaAppDemo.class)
                 .build();
     }
 }

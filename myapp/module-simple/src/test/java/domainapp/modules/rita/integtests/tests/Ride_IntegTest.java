@@ -34,6 +34,8 @@ import domainapp.modules.rita.dom.car.Car;
 import domainapp.modules.rita.dom.car.CarRepository;
 import domainapp.modules.rita.dom.driver.Driver;
 import domainapp.modules.rita.dom.driver.DriverRepository;
+import domainapp.modules.rita.dom.ride.mixins.Car_addRide;
+import domainapp.modules.rita.dom.ride.mixins.Car_rides;
 import domainapp.modules.rita.fixture.car.CarForPeugeotAndJohnAndJan;
 import domainapp.modules.rita.fixture.driver.DriverForJanModaal;
 import domainapp.modules.rita.fixture.driver.DriverForJohnDoe;
@@ -76,12 +78,12 @@ public class Ride_IntegTest extends RitaModuleIntegTestAbstract {
         @Test
         public void happyCase() throws Exception {
             // when
-            wrap(car).addRide("Commute to work", new LocalDate(2017, 1, 1), BigInteger.valueOf(1100), driverForJanModaal);
+            wrap(mixin(Car_addRide.class, car)).$$("Commute to work", new LocalDate(2017, 1, 1), BigInteger.valueOf(1100), driverForJanModaal);
             transactionService.nextTransaction();
 
             // then
             assertThat(car.getMileage()).isEqualTo(BigInteger.valueOf(1100));
-            assertThat(car.getRides().first().getDistanceTraveled()).isEqualTo(BigInteger.valueOf(100));
+            assertThat(mixin(Car_rides.class, car).$$().first().getDistanceTraveled()).isEqualTo(BigInteger.valueOf(100));
         }
 
         @Test
@@ -91,7 +93,7 @@ public class Ride_IntegTest extends RitaModuleIntegTestAbstract {
             expectedExceptions.expectMessage("New mileage must be more than current mileage (1000)");
 
             // when
-            wrap(car).addRide("Negative mileage?!", new LocalDate(2017, 1, 1), BigInteger.valueOf(900), driverForJanModaal);
+            wrap(mixin(Car_addRide.class, car)).$$("Negative mileage?!", new LocalDate(2017, 1, 1), BigInteger.valueOf(900), driverForJanModaal);
         }
 
     }

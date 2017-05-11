@@ -18,30 +18,27 @@
  */
 package domainapp.application.fixture.scenarios;
 
-import javax.annotation.Nullable;
-
-import org.apache.isis.applib.fixturescripts.FixtureScript;
+import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 
 import domainapp.application.fixture.teardown.DomainAppTearDown;
-import lombok.Getter;
-import lombok.Setter;
+import domainapp.modules.rita.fixture.car.CarForPeugeotAndJohnAndJan;
 
-public class DomainAppDemo extends FixtureScript {
+public class RitaAppDemo extends DiscoverableFixtureScript {
 
-    public DomainAppDemo() {
-        withDiscoverability(Discoverability.DISCOVERABLE);
+    public RitaAppDemo() {
+        this(null, "demo");
     }
 
-    @Nullable
-    @Getter @Setter
-    private Integer number;
+    public RitaAppDemo(final String friendlyName, final String localName) {
+        super(friendlyName, localName);
+    }
 
     @Override
     protected void execute(final ExecutionContext ec) {
 
         // execute
         ec.executeChild(this, new DomainAppTearDown());
-        //        ec.executeChild(this, new CreateSimpleObjects().setNumber(number));
+        ec.executeChild(this, new CarForPeugeotAndJohnAndJan());
 
     }
 }

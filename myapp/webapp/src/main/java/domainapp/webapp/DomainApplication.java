@@ -82,7 +82,7 @@ public class DomainApplication extends IsisWicketApplication {
                 bind(InputStream.class).annotatedWith(Names.named("metaInfManifest")).toProvider(
                         Providers.of(getServletContext().getResourceAsStream("/META-INF/MANIFEST.MF")));
                 // if uncommented, then overrides isis.appManifest in config file.
-                // bind(AppManifest.class).toInstance(new DomainAppAppManifest());
+                // bind(AppManifest.class).toInstance(new RitaAppManifest());
             }
         };
 

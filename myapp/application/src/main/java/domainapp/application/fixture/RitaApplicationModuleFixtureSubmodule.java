@@ -16,23 +16,8 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package domainapp.application.manifest;
+package domainapp.application.fixture;
 
-/**
- * Run the app but without setting up any fixtures.
- */
-public class DomainAppAppManifestWithFixtures extends DomainAppAppManifest {
-
-    public DomainAppAppManifestWithFixtures() {
-        this(null);
-    }
-
-    //    public DomainAppAppManifestWithFixtures(final String authMechanism) {
-    //        super((List)Lists.newArrayList(CreateSimpleObjects.class), authMechanism, null);
-    //    }
-
-    public DomainAppAppManifestWithFixtures(final String authMechanism) {
-        super(null, authMechanism, null);
-    }
-
+public final class RitaApplicationModuleFixtureSubmodule {
+    private RitaApplicationModuleFixtureSubmodule(){}
 }

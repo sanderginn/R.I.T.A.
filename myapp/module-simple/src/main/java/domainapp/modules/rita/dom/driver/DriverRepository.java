@@ -39,6 +39,7 @@ public class DriverRepository {
         final Driver driver = new Driver(firstName, lastName, email, iban);
         serviceRegistry.injectServicesInto(driver);
         repositoryService.persist(driver);
+
         return driver;
     }
 

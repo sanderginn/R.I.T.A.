@@ -15,13 +15,14 @@ import org.apache.isis.applib.services.repository.RepositoryService;
 
 import domainapp.modules.rita.dom.car.Car;
 import domainapp.modules.rita.dom.driver.Driver;
+import domainapp.modules.rita.dom.invoice.Invoice;
 
 @DomainService(
         nature = NatureOfService.DOMAIN,
         repositoryFor = Ride.class)
 public class RideRepository {
 
-    public void newRide(
+    public Ride newRide(
             final String description,
             final LocalDate date,
             final BigInteger oldMileage,
@@ -31,6 +32,8 @@ public class RideRepository {
         final Ride ride = new Ride(description, date, oldMileage, newMileage, driver, car);
         serviceRegistry.injectServicesInto(ride);
         repositoryService.persist(ride);
+
+        return ride;
     }
 
     public List<Ride> findByCar(final Car car) {
@@ -39,6 +42,24 @@ public class RideRepository {
                         Ride.class,
                         "findByCar",
                         "car", car
+                ));
+    }
+
+    public List<Ride> findByInvoice(final Invoice invoice) {
+        return repositoryService.allMatches(
+                new QueryDefault<>(
+                        Ride.class,
+                        "findByInvoice",
+                        "invoice", invoice
+                ));
+    }
+
+    public List<Ride> findByCarAndSettledStatus(final Car car, final Boolean settledStatus) {
+        return repositoryService.allMatches(
+                new QueryDefault<>(
+                        Ride.class,
+                        "findByCarAndSettledStatus",
+                        "car", car, "settled", settledStatus
                 ));
     }
 

@@ -15,7 +15,7 @@ public abstract class DriverAbstract extends FixtureScript {
             final String email,
             final String iban,
             final ExecutionContext fixtureResults) {
-        Driver driver = driverRepository.newDriver(firstName, lastName, email, iban);
+        Driver driver = driverRepository.findOrCreateDriver(firstName, lastName, email, iban);
         fixtureResults.addResult(this, driver);
 
         return driver;

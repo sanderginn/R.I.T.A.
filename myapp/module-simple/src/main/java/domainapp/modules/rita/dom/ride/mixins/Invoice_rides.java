@@ -1,6 +1,5 @@
 package domainapp.modules.rita.dom.ride.mixins;
 
-import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -12,27 +11,26 @@ import org.apache.isis.applib.annotation.Contributed;
 import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
-import domainapp.modules.rita.dom.car.Car;
+import domainapp.modules.rita.dom.invoice.Invoice;
 import domainapp.modules.rita.dom.ride.Ride;
 import domainapp.modules.rita.dom.ride.RideRepository;
 
 @Mixin
-public class Car_rides {
+public class Invoice_rides {
 
-    private final Car car;
+    private final Invoice invoice;
 
-    public Car_rides(final Car car) {
-        this.car = car;
+    public Invoice_rides(final Invoice invoice) {
+        this.invoice = invoice;
     }
 
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(contributed = Contributed.AS_ASSOCIATION)
     public SortedSet<Ride> $$() {
-        List<Ride> rides = rideRepository.findByCar(car);
-        TreeSet<Ride> result = new TreeSet<>(rides);
-        return result;
+        return new TreeSet<>(rideRepository.findByInvoice(invoice));
     }
 
     @Inject
     RideRepository rideRepository;
+
 }

@@ -37,15 +37,15 @@ public class DriverMenu {
 
     @Action(semantics = SemanticsOf.IDEMPOTENT)
     @MemberOrder(sequence = "3")
-    public Driver newDriver(
+    public Driver findOrCreateDriver(
             final String firstName,
             final String lastName,
             final String email,
             final @ParameterLayout(named = "IBAN") String iban) {
-        return driverRepository.newDriver(firstName, lastName, email, iban);
+        return driverRepository.findOrCreateDriver(firstName, lastName, email, iban);
     }
 
-    public String validateNewDriver(
+    public String validateFindOrCreateDriver(
             final String firstName,
             final String lastName,
             final String email,

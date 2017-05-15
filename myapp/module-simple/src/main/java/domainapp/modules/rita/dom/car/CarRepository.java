@@ -21,11 +21,15 @@ public class CarRepository {
         return repositoryService.allInstances(Car.class);
     }
 
-    public Car newCar(final String licensePlate, final BigInteger mileage) {
-        final Car car = new Car(licensePlate, mileage);
-        serviceRegistry.injectServicesInto(car);
-        repositoryService.persist(car);
-        return car;
+    public Car findOrCreateCar(final String licensePlate, final BigInteger mileage) {
+        if (findByLicensePlate(licensePlate) == null) {
+            final Car car = new Car(licensePlate, mileage);
+            serviceRegistry.injectServicesInto(car);
+            repositoryService.persist(car);
+            return car;
+        } else {
+            return findByLicensePlate(licensePlate);
+        }
     }
 
     public Car findByLicensePlate(final String licensePlate) {

@@ -18,7 +18,7 @@ public abstract class CarAbstract extends FixtureScript {
             final String licensePlate,
             final BigInteger mileage,
             final ExecutionContext fixtureResults) {
-        Car car = carRepository.newCar(licensePlate, mileage);
+        Car car = carRepository.findOrCreateCar(licensePlate, mileage);
         fixtureResults.addResult(this, car);
 
         return car;

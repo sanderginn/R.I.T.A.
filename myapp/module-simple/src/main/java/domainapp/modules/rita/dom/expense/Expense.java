@@ -11,11 +11,15 @@ import javax.jdo.annotations.VersionStrategy;
 import org.joda.time.LocalDate;
 
 import org.apache.isis.applib.annotation.DomainObject;
+import org.apache.isis.applib.annotation.Programmatic;
+import org.apache.isis.applib.annotation.PropertyLayout;
+import org.apache.isis.applib.annotation.Where;
 
 import org.incode.module.base.dom.utils.TitleBuilder;
 
 import domainapp.modules.rita.dom.car.Car;
 import domainapp.modules.rita.dom.driver.Driver;
+import domainapp.modules.rita.dom.invoice.Invoice;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -34,13 +38,27 @@ import lombok.Setter;
                 name = "findByCar",
                 value = "SELECT "
                         + "FROM domainapp.modules.rita.dom.expense.Expense "
-                        + "WHERE car == :car")
+                        + "WHERE car == :car"),
+        @Query(
+                name = "findByInvoice",
+                value = "SELECT "
+                        + "FROM domainapp.modules.rita.dom.expense.Expense "
+                        + "WHERE settledOnInvoice == :invoice"),
+        @Query(
+                name = "findByCarAndSettledStatus",
+                value = "SELECT "
+                        + "FROM domainapp.modules.rita.dom.expense.Expense "
+                        + "WHERE car == :car"
+                        + "&& settled == :settled")
 })
 @DomainObject()
 public class Expense implements Comparable<Expense> {
 
     public String title() {
         return TitleBuilder.start()
+                .withName(getPaidBy().title())
+                .withReference(getDatePaid().toString() + ", " + settledToString())
+                .withParent(getType().toNormalCase())
                 .toString();
     }
 
@@ -75,6 +93,7 @@ public class Expense implements Comparable<Expense> {
     private Driver paidBy;
 
     @Column(allowsNull = "false")
+    @PropertyLayout(hidden = Where.REFERENCES_PARENT)
     @Getter @Setter
     private Car car;
 
@@ -82,8 +101,21 @@ public class Expense implements Comparable<Expense> {
     @Getter @Setter
     private Boolean settled;
 
+    @Column(allowsNull = "true")
+    @Getter @Setter
+    private Invoice settledOnInvoice;
+
+    public boolean hideSettledOnInvoice() {
+        return !getSettled();
+    }
+
     @Override
     public int compareTo(final Expense o) {
-        return getDatePaid().compareTo(o.getDatePaid());
+        return -getCost().compareTo(o.getCost());
+    }
+
+    @Programmatic
+    private String settledToString() {
+        return getSettled() ? "settled" : "not settled";
     }
 }

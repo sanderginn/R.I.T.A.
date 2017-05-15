@@ -4,6 +4,8 @@ import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.Queries;
 import javax.jdo.annotations.Query;
+import javax.jdo.annotations.Unique;
+import javax.jdo.annotations.Uniques;
 import javax.jdo.annotations.VersionStrategy;
 
 import org.apache.isis.applib.annotation.DomainObject;
@@ -30,7 +32,16 @@ import lombok.Setter;
                 name = "findByLastName",
                 value = "SELECT "
                         + "FROM domainapp.modules.rita.dom.driver.Driver "
-                        + "WHERE lastName.indexOf(:lastName) >= 0")
+                        + "WHERE lastName.indexOf(:lastName) >= 0"),
+        @Query(
+                name = "findByEmail",
+                value = "SELECT "
+                        + "FROM domainapp.modules.rita.dom.driver.Driver "
+                        + "WHERE email == :email")
+})
+//TODO: add uniques
+@Uniques({
+        @Unique()
 })
 @DomainObject()
 public class Driver {
@@ -93,4 +104,8 @@ public class Driver {
         return this;
     }
 
+    @Override
+    public String toString() {
+        return firstName + ' ' + lastName;
+    }
 }

@@ -15,6 +15,7 @@ import org.apache.isis.applib.services.repository.RepositoryService;
 
 import domainapp.modules.rita.dom.car.Car;
 import domainapp.modules.rita.dom.driver.Driver;
+import domainapp.modules.rita.dom.invoice.Invoice;
 
 @DomainService(
         nature = NatureOfService.DOMAIN,
@@ -40,6 +41,24 @@ public class ExpenseRepository {
                         Expense.class,
                         "findByCar",
                         "car", car
+                ));
+    }
+
+    public List<Expense> findByInvoice(final Invoice invoice) {
+        return repositoryService.allMatches(
+                new QueryDefault<>(
+                        Expense.class,
+                        "findByInvoice",
+                        "invoice", invoice
+                ));
+    }
+
+    public List<Expense> findByCarAndSettledStatus(final Car car, final Boolean settledStatus) {
+        return repositoryService.allMatches(
+                new QueryDefault<>(
+                        Expense.class,
+                        "findByCarAndSettledStatus",
+                        "car", car, "settled", settledStatus
                 ));
     }
 

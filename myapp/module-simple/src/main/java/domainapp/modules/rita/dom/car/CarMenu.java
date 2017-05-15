@@ -30,11 +30,11 @@ public class CarMenu {
 
     @Action(semantics = SemanticsOf.IDEMPOTENT)
     @MemberOrder(sequence = "2")
-    public Car newCar(final String licensePlate, final BigInteger mileage) {
-        return carRepository.newCar(licensePlate, mileage);
+    public Car findOrCreateCar(final String licensePlate, final BigInteger mileage) {
+        return carRepository.findOrCreateCar(licensePlate, mileage);
     }
 
-    public String validateNewCar(final String licensePlate, final BigInteger mileage) {
+    public String validateFindOrCreateCar(final String licensePlate, final BigInteger mileage) {
         String licensePlateFiltered = licensePlate.replace("-", "").toUpperCase();
 
         Pattern[] licensePatterns = new Pattern[14];

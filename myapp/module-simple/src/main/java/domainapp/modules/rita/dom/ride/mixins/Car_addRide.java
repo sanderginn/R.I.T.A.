@@ -7,7 +7,9 @@ import javax.inject.Inject;
 
 import org.joda.time.LocalDate;
 
+import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.Mixin;
+import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.clock.ClockService;
 
 import domainapp.modules.rita.dom.car.Car;
@@ -23,6 +25,7 @@ public class Car_addRide {
         this.car = car;
     }
 
+    @Action(semantics = SemanticsOf.NON_IDEMPOTENT)
     public Car $$(
             final String description,
             final LocalDate date,

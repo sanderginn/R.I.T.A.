@@ -6,11 +6,10 @@ import javax.inject.Inject;
 
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.registry.ServiceRegistry2;
 import org.apache.isis.applib.services.repository.RepositoryService;
-
-import domainapp.modules.rita.dom.util.IBANValidator;
 
 @DomainService(
         nature = NatureOfService.DOMAIN,
@@ -22,6 +21,22 @@ public class DriverRepository {
         return repositoryService.allInstances(Driver.class);
     }
 
+    public Driver findOrCreateDriver(
+            final String firstName,
+            final String lastName,
+            final String email,
+            final String iban) {
+        if (findByEmail(email) == null) {
+            final Driver driver = new Driver(firstName, lastName, email, iban);
+            serviceRegistry.injectServicesInto(driver);
+            repositoryService.persist(driver);
+
+            return driver;
+        } else {
+            return findByEmail(email);
+        }
+    }
+
     public List<Driver> findByLastName(final String lastName) {
         return repositoryService.allMatches(
                 new QueryDefault<>(
@@ -31,16 +46,14 @@ public class DriverRepository {
                 ));
     }
 
-    public Driver newDriver(
-            final String firstName,
-            final String lastName,
-            final String email,
-            final String iban) {
-        final Driver driver = new Driver(firstName, lastName, email, iban);
-        serviceRegistry.injectServicesInto(driver);
-        repositoryService.persist(driver);
-
-        return driver;
+    @Programmatic
+    private Driver findByEmail(final String email) {
+        return repositoryService.uniqueMatch(
+                new QueryDefault<>(
+                        Driver.class,
+                        "findByEmail",
+                        "email", email
+                ));
     }
 
     @Inject

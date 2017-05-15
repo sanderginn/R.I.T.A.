@@ -11,11 +11,14 @@ import javax.jdo.annotations.VersionStrategy;
 import org.joda.time.LocalDate;
 
 import org.apache.isis.applib.annotation.DomainObject;
+import org.apache.isis.applib.annotation.PropertyLayout;
+import org.apache.isis.applib.annotation.Where;
 
 import org.incode.module.base.dom.utils.TitleBuilder;
 
 import domainapp.modules.rita.dom.car.Car;
 import domainapp.modules.rita.dom.driver.Driver;
+import domainapp.modules.rita.dom.invoice.Invoice;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -34,7 +37,18 @@ import lombok.Setter;
                 name = "findByCar",
                 value = "SELECT "
                         + "FROM domainapp.modules.rita.dom.ride.Ride "
-                        + "WHERE car == :car")
+                        + "WHERE car == :car"),
+        @Query(
+                name = "findByInvoice",
+                value = "SELECT "
+                        + "FROM domainapp.modules.rita.dom.ride.Ride "
+                        + "WHERE settledOnInvoice == :invoice"),
+        @Query(
+                name = "findByCarAndSettledStatus",
+                value = "SELECT "
+                        + "FROM domainapp.modules.rita.dom.ride.Ride "
+                        + "WHERE car == :car"
+                        + "&& settled == :settled")
 })
 @DomainObject()
 public class Ride implements Comparable<Ride> {
@@ -88,6 +102,7 @@ public class Ride implements Comparable<Ride> {
     private Driver driver;
 
     @Column(allowsNull = "false")
+    @PropertyLayout(hidden = Where.REFERENCES_PARENT)
     @Getter @Setter
     private Car car;
 
@@ -95,8 +110,16 @@ public class Ride implements Comparable<Ride> {
     @Getter @Setter
     private Boolean settled;
 
+    @Column(allowsNull = "true")
+    @Getter @Setter
+    private Invoice settledOnInvoice;
+
+    public boolean hideSettledOnInvoice() {
+        return !getSettled();
+    }
+
     @Override
     public int compareTo(final Ride o) {
-        return this.getDate().compareTo(o.getDate());
+        return -getNewMileage().compareTo(o.getNewMileage());
     }
 }

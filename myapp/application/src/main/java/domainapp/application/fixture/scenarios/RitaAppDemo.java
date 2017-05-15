@@ -21,7 +21,10 @@ package domainapp.application.fixture.scenarios;
 import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 
 import domainapp.application.fixture.teardown.DomainAppTearDown;
-import domainapp.modules.rita.fixture.car.CarForPeugeotAndJohnAndJan;
+import domainapp.modules.rita.fixture.expense.ExpensesForJanModaalAndPeugeot;
+import domainapp.modules.rita.fixture.expense.ExpensesForJohnDoeAndPeugeot;
+import domainapp.modules.rita.fixture.ride.RidesForJanModaalAndPeugeot;
+import domainapp.modules.rita.fixture.ride.RidesForJohnDoeAndPeugeot;
 
 public class RitaAppDemo extends DiscoverableFixtureScript {
 
@@ -38,7 +41,9 @@ public class RitaAppDemo extends DiscoverableFixtureScript {
 
         // execute
         ec.executeChild(this, new DomainAppTearDown());
-        ec.executeChild(this, new CarForPeugeotAndJohnAndJan());
-
+        ec.executeChild(this, new RidesForJohnDoeAndPeugeot());
+        ec.executeChild(this, new RidesForJanModaalAndPeugeot());
+        ec.executeChild(this, new ExpensesForJohnDoeAndPeugeot());
+        ec.executeChild(this, new ExpensesForJanModaalAndPeugeot());
     }
 }

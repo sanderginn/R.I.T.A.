@@ -11,6 +11,7 @@ import javax.jdo.annotations.VersionStrategy;
 import org.joda.time.LocalDate;
 
 import org.apache.isis.applib.annotation.DomainObject;
+import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.annotation.Where;
@@ -51,7 +52,8 @@ import lombok.Setter;
                         + "WHERE car == :car"
                         + "&& settled == :settled")
 })
-@DomainObject()
+@DomainObject
+@DomainObjectLayout(cssClassFa = "fa-eur")
 public class Expense implements Comparable<Expense> {
 
     public String title() {

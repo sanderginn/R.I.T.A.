@@ -8,6 +8,7 @@ import javax.jdo.annotations.VersionStrategy;
 import org.joda.time.LocalDate;
 
 import org.apache.isis.applib.annotation.DomainObject;
+import org.apache.isis.applib.annotation.DomainObjectLayout;
 
 import org.incode.module.base.dom.utils.TitleBuilder;
 
@@ -28,7 +29,8 @@ import lombok.Setter;
 @Queries({
 
 })
-@DomainObject()
+@DomainObject
+@DomainObjectLayout(cssClassFa = "fa-file-text")
 public class Invoice {
 
     public String title() {

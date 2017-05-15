@@ -16,6 +16,7 @@ import org.json.JSONObject;
 
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainObject;
+import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 import org.incode.module.base.dom.utils.TitleBuilder;
@@ -45,7 +46,8 @@ import lombok.Setter;
                         + "FROM domainapp.modules.rita.dom.car.Car "
                         + "WHERE licensePlate == :licensePlate")
 })
-@DomainObject()
+@DomainObject
+@DomainObjectLayout(cssClassFa = "fa-car")
 public class Car {
 
     public String title() {

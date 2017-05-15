@@ -9,6 +9,7 @@ import javax.jdo.annotations.Uniques;
 import javax.jdo.annotations.VersionStrategy;
 
 import org.apache.isis.applib.annotation.DomainObject;
+import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Parameter;
 
@@ -43,7 +44,8 @@ import lombok.Setter;
 @Uniques({
         @Unique()
 })
-@DomainObject()
+@DomainObject
+@DomainObjectLayout(cssClassFa = "fa-user")
 public class Driver {
 
     public String title() {

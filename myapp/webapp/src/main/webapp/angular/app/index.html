@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>R.I.T.A.</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
+    <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
+    <link rel="stylesheet" href="app.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-resource.min.js"></script>
+
+    <script src="bower_components/angular-route/angular-route.js"></script>
+
+    <script src="js/app.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+</head>
+<body ng-app="demo">
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+
+            <div ng-view></div>
+
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
+                <li><a data-toggle="tab" href="#addride">Add ride</a></li>
+                <li><a data-toggle="tab" href="#addexpense">Add expense</a></li>
+            </ul>
+
+            <div class="tab-content">
+                <div id="home" class="tab-pane fade in active">
+                    <a href="/wicket/" class="btn btn-primary btn-block" role="button">Go to administration</a>
+                </div>
+
+                <div id="addride" class="tab-pane fade" ng-controller="AddRideCtrl">
+                    <form class="form-horizontal" ng-submit="addRide()" id="addRideForm">
+                        <!-- Description field -->
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="description">Description:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="description" placeholder="Enter description" name="description" ng-model="ride.description">
+                            </div>
+                        </div>
+
+                        <!-- Date field -->
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="dateInput">Date:</label>
+                            <div class="col-sm-10">
+                                <input type="date" class="form-control" id="dateInput" name="date" ng-model="ride.date">
+                            </div>
+                        </div>
+
+                        <!-- Mileage field -->
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="mileage">New mileage:</label>
+                            <div class="col-sm-10">
+                                <input type="number" class="form-control" id="mileage" placeholder="New mileage" name="mileage" ng-model="ride.mileage">
+                            </div>
+                        </div>
+
+                        <!-- Driver field -->
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="driver">Driver:</label>
+                            <div class="col-sm-10">
+                                <select id="driver" class="form-control" ng-options="driver.title for driver in drivers.value" ng-model="ride.driver"></select>
+                            </div>
+                        </div>
+
+                        <!-- Alerts -->
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <div class="alert alert-danger" id="addRideError">
+                                    {{ addRideError }}
+                                </div>
+                            </div>
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <div class="alert alert-success" id="addRideSuccess">
+                                    Ride added successfully!
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Submit button -->
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-success btn-block">Add ride</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="addexpense" class="tab-pane fade">
+                    <h3>add an expense</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+  $(function () {
+    document.getElementById('dateInput').valueAsDate = new Date();
+    $('#addRideError').hide();
+    $('#addRideSuccess').hide();
+  });
+</script>
+</body>
+</html>

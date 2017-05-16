@@ -8,6 +8,11 @@ import javax.jdo.annotations.Queries;
 import javax.jdo.annotations.Query;
 import javax.jdo.annotations.VersionStrategy;
 
+import org.apache.isis.applib.annotation.DomainObject;
+import org.apache.isis.applib.annotation.DomainObjectLayout;
+
+import org.incode.module.base.dom.utils.TitleBuilder;
+
 import domainapp.modules.rita.dom.driver.Driver;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,7 +34,17 @@ import lombok.Setter;
                         + "FROM domainapp.modules.rita.dom.invoice.Transaction "
                         + "WHERE invoice == :invoice")
 })
+@DomainObject
+@DomainObjectLayout(cssClassFa = "fa-exchange")
 public class Transaction implements Comparable<Transaction> {
+
+    public String title() {
+        return TitleBuilder.start()
+                .withName(getDebtor().getFirstName() + " " + getDebtor().getLastName() + " pays ")
+                .withName(getCreditor().getFirstName() + " " + getCreditor().getLastName())
+                .withName("€" + getAmount())
+                .toString();
+    }
 
     public Transaction(
             final Driver debtor,
@@ -40,7 +55,6 @@ public class Transaction implements Comparable<Transaction> {
         this.creditor = creditor;
         this.amount = amount;
         this.invoice = invoice;
-        this.settled = Boolean.FALSE;
     }
 
     @Column(allowsNull = "false")
@@ -58,10 +72,6 @@ public class Transaction implements Comparable<Transaction> {
     @Column(allowsNull = "false")
     @Getter @Setter
     private Invoice invoice;
-
-    @Column(allowsNull = "false")
-    @Getter @Setter
-    private Boolean settled;
 
     @Override
     public int compareTo(final Transaction o) {

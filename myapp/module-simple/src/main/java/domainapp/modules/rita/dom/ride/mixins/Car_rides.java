@@ -1,6 +1,5 @@
 package domainapp.modules.rita.dom.ride.mixins;
 
-import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -28,9 +27,7 @@ public class Car_rides {
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(contributed = Contributed.AS_ASSOCIATION)
     public SortedSet<Ride> $$() {
-        List<Ride> rides = rideRepository.findByCar(car);
-        TreeSet<Ride> result = new TreeSet<>(rides);
-        return result;
+        return new TreeSet<>(rideRepository.findByCar(car));
     }
 
     @Inject

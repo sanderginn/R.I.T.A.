@@ -113,7 +113,8 @@ public class Expense implements Comparable<Expense> {
 
     @Override
     public int compareTo(final Expense o) {
-        return -getCost().compareTo(o.getCost());
+        int compared = getDatePaid().compareTo(o.getDatePaid());
+        return compared == 0 ? 1 : -compared;
     }
 
     @Programmatic

@@ -1,7 +1,6 @@
 package domainapp.modules.rita.dom.expense.mixins;
 
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -26,8 +25,10 @@ public class Car_expenses {
 
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(contributed = Contributed.AS_ASSOCIATION)
-    public SortedSet<Expense> $$() {
-        return new TreeSet<>(expenseRepository.findByCar(car));
+    public List<Expense> $$() {
+        List<Expense> expenses = expenseRepository.findByCar(car);
+        expenses.sort(Expense::compareTo);
+        return expenses;
     }
 
     @Inject

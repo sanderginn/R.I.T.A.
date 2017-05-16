@@ -11,7 +11,7 @@
             <bs3:tabGroup>
                 <bs3:tab name="General">
                     <bs3:row>
-                        <bs3:col span="6">
+                        <bs3:col span="4">
                             <cpt:fieldSet name="General" id="general">
                                 <cpt:property id="brand"/>
                                 <cpt:property id="model"/>
@@ -27,10 +27,21 @@
                                 </cpt:action>
                             </cpt:fieldSet>
                         </bs3:col>
-                        <bs3:col span="6">
-                            <cpt:collection id="drivers" defaultView="table">
-                                <cpt:action id="addDriver" position="RIGHT"/>
-                            </cpt:collection>
+                        <bs3:col span="8">
+                            <bs3:row>
+                                <bs3:col span="12">
+                                    <cpt:collection id="drivers" defaultView="table">
+                                        <cpt:action id="addDriver" position="RIGHT"/>
+                                    </cpt:collection>
+                                </bs3:col>
+                            </bs3:row>
+                            <bs3:row>
+                                <bs3:col span="12">
+                                    <cpt:collection id="expenses" defaultView="table">
+                                        <cpt:action id="addExpense" position="RIGHT"/>
+                                    </cpt:collection>
+                                </bs3:col>
+                            </bs3:row>
                         </bs3:col>
                     </bs3:row>
                 </bs3:tab>
@@ -45,18 +56,13 @@
         </bs3:col>
     </bs3:row>
     <bs3:row>
-        <bs3:col span="12" unreferencedCollections="true">
-            <bs3:tabGroup>
+        <bs3:col span="12">
+            <bs3:tabGroup unreferencedCollections="true">
                 <bs3:tab name="Rides and expenses">
                     <bs3:row>
-                        <bs3:col span="6">
+                        <bs3:col span="12">
                             <cpt:collection id="rides" defaultView="table">
                                 <cpt:action id="addRide" position="RIGHT"/>
-                            </cpt:collection>
-                        </bs3:col>
-                        <bs3:col span="6">
-                            <cpt:collection id="expenses" defaultView="table">
-                                <cpt:action id="addExpense" position="RIGHT"/>
                             </cpt:collection>
                         </bs3:col>
                     </bs3:row>

@@ -24,7 +24,7 @@
     <display-name>R.I.T.A.</display-name>
 
     <welcome-file-list>
-        <welcome-file>about/index.html</welcome-file>
+        <welcome-file>angular/app/index.html</welcome-file>
     </welcome-file-list>
 
     <!-- shiro security configuration -->
@@ -229,8 +229,8 @@
 
     <context-param>
         <param-name>configuration</param-name>
-        <param-value>deployment</param-value>
-        <!--<param-value>development</param-value>-->
+        <!--<param-value>deployment</param-value>-->
+        <param-value>development</param-value>
     </context-param>
     
    
@@ -283,7 +283,7 @@
         <!-- authentication required for REST -->
         <init-param>
             <param-name>authenticationSessionStrategy</param-name>
-            <param-value>org.apache.isis.viewer.restfulobjects.server.authentication.AuthenticationSessionStrategyBasicAuth</param-value>
+            <param-value>org.apache.isis.viewer.restfulobjects.server.authentication.AuthenticationSessionStrategyTrusted</param-value>
         </init-param>
         <init-param>
             <!-- what to do if no session was found... -->

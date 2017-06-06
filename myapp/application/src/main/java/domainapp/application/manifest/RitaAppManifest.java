@@ -62,7 +62,7 @@ public class RitaAppManifest implements AppManifest {
      */
     @Override
     public String getAuthenticationMechanism() {
-        return "shiro";
+        return null;
     }
 
     /**
@@ -70,7 +70,7 @@ public class RitaAppManifest implements AppManifest {
      */
     @Override
     public String getAuthorizationMechanism() {
-        return "shiro";
+        return null;
     }
 
     /**

@@ -7,6 +7,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.Queries;
 import javax.jdo.annotations.Query;
 import javax.jdo.annotations.VersionStrategy;
@@ -105,6 +106,7 @@ public class Car {
 
     // //////////////////////////////////
 
+    @Persistent
     @Getter @Setter
     private List<Driver> drivers = new ArrayList<>();
 

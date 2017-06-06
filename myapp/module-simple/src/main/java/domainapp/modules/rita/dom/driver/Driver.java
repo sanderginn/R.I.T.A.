@@ -46,7 +46,7 @@ import lombok.Setter;
 })
 @DomainObject
 @DomainObjectLayout(cssClassFa = "fa-user")
-public class Driver {
+public class Driver implements Comparable<Driver> {
 
     public String title() {
         return TitleBuilder.start()
@@ -109,5 +109,10 @@ public class Driver {
     @Override
     public String toString() {
         return firstName + ' ' + lastName;
+    }
+
+    @Override
+    public int compareTo(final Driver o) {
+        return getLastName().compareTo(o.getLastName());
     }
 }
